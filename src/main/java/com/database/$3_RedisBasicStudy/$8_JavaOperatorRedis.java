@@ -48,6 +48,29 @@ package com.database.$3_RedisBasicStudy;
                 给Hash对象添加属性值 ==> jedis.hmset("keyName", hashMap)
             删除指定键值对 ==> jedis.del("keyName1", "keyName2", ...)
             删除指定Hash对象的指定属性 ==> jedis.hdel("keyName", "fieldName1", "fieldName2", ...)
+        操作List:
+            从列表左侧插入数据 ==> jedis.lpush("keyName", "value1", "value2", "value3") ==> value3, value2, value1
+            从列表右侧插入数据 ==> jedis.rpush("keyName", "value1", "value2", "value3") ==> value1, value2, value3
+            在指定数据前插入数据 ==> jedis.linsert("keyName", ListPosition.BEFORE, "oldValue", "newValue")
+            在指定数据后插入数据 ==> jedis.linsert("keyName", ListPosition.AFTER, "oldValue", "newValue")
+            获取列表中元素的个数 ==> jedis.llen("keyName")
+            获取列表中指定范围的元素, 返回一个List集合 ==> jedis.lrange("keyName", startIndex, endIndex)
+            修改指定索引位置的元素 ==> jedis.lset("keyName", index, "value")
+            删除指定元素 ==> jedis.lrem("keyName", count, "value"):
+                count = 0 ==> 删除所有指定元素
+                count > 0 ==> 从左到右删除指定个数的元素
+                count < 0 ==> 从右到左删除指定个数的元素
+        操作无序集合Set:
+            集合添加数据 ==> jedis.sadd("keyName", "value1", "value2", ...)
+            获取集合所有数据, 返回一个 Set 集合 ==> jedis.smembers("keyName")
+            删除集合指定数据 ==> jedis.srem("keyName", "value1", "value2", ...)
+        操作有序集合ZSet:
+            集合添加数据 ==> jedis.zadd("keyName", score, "value");
+            获取指定索引范围的元素, 返回一个List集合 ==> jedis.zrange("keyName", startIndex, endIndex)
+            获取指定权重范围的元素, 返回一个List集合 ==> jedis.zrangeByScore("keyName", minScore, maxScore)
+            获取指定元素的权重值, 返回值为 double 类型 ==> jedis.zscore("keyName", "value")
+            删除指定元素 ==> jedis.zrem("keyName", "value")
+            删除指定权重范围的元素 ==> jedis.zremrangeByScore("keyName", minScore, maxScore)
  */
 
 import redis.clients.jedis.Jedis;
